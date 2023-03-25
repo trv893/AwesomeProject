@@ -17,7 +17,7 @@ const WeeklySchedule = React.memo(({ shiftData, startDate, userId }) => {
   return (
     <View style={styles.container}>
       <WeekSelector
-        days={selectedWeekArrayOfDateObject}
+        formattedArrayOfDateObjs={selectedWeekArrayOfDateObject}
         onWeekChange={onWeekChange}
       />
     </View>
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
   },
+  weekSelector: {
+    width: "100%",
+  }
 });
 
 export default WeeklySchedule;

@@ -21,7 +21,7 @@ const WeekSelector = ({ formattedArrayOfDateObjs, onWeekChange }) => {
     return (
       <View style={styles.container}>
         <PrevButton onPress={onPressPrevious} />
-        <WeekDisplay formattedArrayOfDateObjs={formattedArrayOfDateObjs} today={today} />
+        <WeekDisplay days={formattedArrayOfDateObjs} today={today} />
         <NextButton onPress={onPressNext} />
       </View>
     );
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#E5D8CC',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 2,
+    paddingHorizontal: 2,
     borderRadius: 20,
   },
 });

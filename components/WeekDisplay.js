@@ -10,7 +10,7 @@ const WeekDisplay = ({ days }) => {
               {day.dayString}
             </Text>
             <Text style={[styles.dateText, day.selected && styles.selectedDateText]}>
-              {day.formattedDate.dayString}
+              {day.dayNumberString}
             </Text>
           </View>
         ))}
@@ -25,6 +25,7 @@ const WeekDisplay = ({ days }) => {
       alignItems: 'center',
       backgroundColor: '#FFFFFF',
       borderRadius: 10,
+      borderColor: '#000000',
       paddingHorizontal: 10,
       paddingVertical: 5,
     },
