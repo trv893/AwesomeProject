@@ -72,10 +72,12 @@ const App = () => {
 
 const styles = StyleSheet.create({
 container: {
+  fontSize: 16,
   flex: 1,
   width: windowWidth,
   height: windowHeight,
-  marginHorizontal: windowWidth * 0.05, // set margin of 5% of the device width on the left and right sides
+  maxWidth: "798px",
+  marginHorizontal: windowWidth * 0.02, // set margin of 5% of the device width on the left and right sides
   marginTop: windowHeight * 0.1, // set margin of 2% of the device height at the top
   marginBottom: windowHeight * 0.04, // set margin of 2% of the device height at the bottom
   backgroundColor: "white",

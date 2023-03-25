@@ -1,53 +1,77 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const WeekDisplay = ({ days }) => {
-    return (
-      <View style={styles.container}>
-        {days.map((day, index) => (
-          <View key={index} style={styles.dayContainer}>
-            <Text style={[styles.dayText, day.selected && styles.selectedDayText]}>
-              {day.dayString}
-            </Text>
-            <Text style={[styles.dateText, day.selected && styles.selectedDateText]}>
-              {day.dayNumberString}
-            </Text>
-          </View>
-        ))}
+const Day = ({ day, isCurrentDay }) => {
+  const { dayString, dayNumberString } = day;
+
+  return (
+    <View style={[styles.dayContainer, isCurrentDay && styles.currentDayContainer]}>
+      <Text style={[styles.dayString, isCurrentDay && styles.currentDayString]}>
+        {dayString}
+      </Text>
+      <View style={[styles.dayNumberContainer, isCurrentDay && styles.currentDayNumberContainer]}>
+        <Text style={[styles.dayNumber, isCurrentDay && styles.currentDayNumber]}>
+          {dayNumberString}
+        </Text>
       </View>
-    );
-  };
-  
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: '#FFFFFF',
-      borderRadius: 10,
-      borderColor: '#000000',
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-    },
-    dayContainer: {
-      alignItems: 'center',
-    },
-    dayText: {
-      fontSize: 16,
-      color: '#000000',
-    },
-    selectedDayText: {
-      fontWeight: 'bold',
-      color: '#FFFFFF',
-    },
-    dateText: {
-      fontSize: 14,
-      color: '#000000',
-    },
-    selectedDateText: {
-      fontWeight: 'bold',
-      color: '#FFFFFF',
-    },
-  });
-  
-  export default WeekDisplay;
+    </View>
+  );
+};
+
+const WeekDisplay = ({ day }) => {
+  const today = new Date().toLocaleDateString();
+
+  return (
+    <View style={styles.container}>
+      {day.map(day => (
+        <Day key={day.dayString} day={day} isCurrentDay={day.dayString === today} />
+      ))}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F7F7F7',
+    borderRadius: 10,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
+  dayContainer: {
+    alignItems: 'center',
+  },
+  currentDayContainer: {
+    borderWidth: 1,
+    borderColor: '#FF0000',
+  },
+  dayString: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 5,
+  },
+  dayNumber: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  currentDayString: {
+    color: '#FF0000',
+  },
+  dayNumberContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 0,
+  },
+  currentDayNumberContainer: {
+    backgroundColor: '#FF0000',
+  },
+  currentDayNumber: {
+    color: '#FFFFFF',
+  },
+});
+
+export default WeekDisplay;
