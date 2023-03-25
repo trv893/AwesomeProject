@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   dayContainer: {
+    borderWidth: 1,
+    borderColor: 'black',
     alignItems: 'center',
   },
   currentDayContainer: {
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
   currentDayNumber: {
     color: '#FFFFFF',
   },
+  
 });
 
 export default WeekDisplay;
