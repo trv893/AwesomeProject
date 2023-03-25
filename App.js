@@ -76,7 +76,7 @@ container: {
   width: windowWidth,
   height: windowHeight,
   marginHorizontal: windowWidth * 0.05, // set margin of 5% of the device width on the left and right sides
-  marginTop: windowHeight * 0.06, // set margin of 2% of the device height at the top
+  marginTop: windowHeight * 0.1, // set margin of 2% of the device height at the top
   marginBottom: windowHeight * 0.04, // set margin of 2% of the device height at the bottom
   backgroundColor: "white",
 },

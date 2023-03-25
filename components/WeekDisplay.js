@@ -1,36 +1,52 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-const WeekDisplay = ({ formattedArrayOfDateObjs, today }) => {
-  const formatDate = (date) => {
-    // format date as desired
+const WeekDisplay = ({ days }) => {
+    return (
+      <View style={styles.container}>
+        {days.map((day, index) => (
+          <View key={index} style={styles.dayContainer}>
+            <Text style={[styles.dayText, day.selected && styles.selectedDayText]}>
+              {day.dayString}
+            </Text>
+            <Text style={[styles.dateText, day.selected && styles.selectedDateText]}>
+              {day.formattedDate.dayString}
+            </Text>
+          </View>
+        ))}
+      </View>
+    );
   };
-
-  return (
-    <View style={styles.weekDisplay}>
-      
-        {/* render day list with clean borders that displays formattedDate.dayString over top of formattedDate.dayNumberString */}
-
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  weekDisplay: {
-    alignItems: 'center',
-  },
-  weekTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  dayList: {
-    flexDirection: 'row',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#C73E1D',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-});
-
-export default WeekDisplay;
+  
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      backgroundColor: '#FFFFFF',
+      borderRadius: 10,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+    },
+    dayContainer: {
+      alignItems: 'center',
+    },
+    dayText: {
+      fontSize: 16,
+      color: '#000000',
+    },
+    selectedDayText: {
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+    },
+    dateText: {
+      fontSize: 14,
+      color: '#000000',
+    },
+    selectedDateText: {
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+    },
+  });
+  
+  export default WeekDisplay;
