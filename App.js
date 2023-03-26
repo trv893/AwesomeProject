@@ -18,14 +18,28 @@ const windowHeight = Dimensions.get('window').height;
  * @returns {JSX.Element} The main app component
  */
 const App = () => {
-  // Define state variables using the useState hook
-  const [shiftData, setShiftData] = useState([]);// @type {Array} shiftData will contain an array of shift assignment objects with the following structure: [{ "shiftAssignmentId": 4988, "userId": 2, "shiftId": 1, "dateAssigned": "2023-03-13T00:00:00", "sectionId": 5, "releasedByUser": false, "dayId": 2, "section": "5", "assignee": "Aleesha Johnson", "releaseByUserId": 0, "shiftName": "AM"}, ...]
+  // --- State Variables ---
+  
+  // @type {Array} shiftData will contain an array of shift assignment objects with the following structure: [{ "shiftAssignmentId": 4988, "userId": 2, "shiftId": 1, "dateAssigned": "2023-03-13T00:00:00", "sectionId": 5, "releasedByUser": false, "dayId": 2, "section": "5", "assignee": "Aleesha Johnson", "releaseByUserId": 0, "shiftName": "AM"}, ...]
+  const [shiftData, setShiftData] = useState([]);
+  
+  // @type {Boolean} isLoading is true when the app is fetching data from the API, and false otherwise
   const [isLoading, setIsLoading] = useState(true);
-  const [startDate, setStartDate] = useState(new Date()); // @type {Date} The date to start the schedule from
-  const [endDate, setEndDate] = useState(); // @type {Date} The date to end the schedule at
-  const [error, setError] = useState(null); // @type {String} Error message string if API call fails
-  const userId = 5; // @type {Number} The ID of the user whose schedule is being displayed
+  
+  // @type {Date} The date to start the schedule from
+  const [startDate, setStartDate] = useState(new Date());
+  
+  // @type {Date} The date to end the schedule at
+  const [endDate, setEndDate] = useState();
+  
+  // @type {String} Error message string if API call fails
+  const [error, setError] = useState(null);
 
+  // @type {Number} The ID of the user whose schedule is being displayed
+  const userId = 5;
+
+  // --- Memoized Props ---
+  
   // Create a memoized object of props to pass to WeeklySchedule component
   const weeklyScheduleProps = useMemo(
     () => ({
@@ -36,6 +50,8 @@ const App = () => {
     [shiftData, startDate, userId]
   );
 
+  // --- API Call ---
+  
   useEffect(() => {
     setIsLoading(true); // set loading to true when useEffect runs
 
@@ -47,56 +63,74 @@ const App = () => {
       setIsLoading, // @param {Function} callback to set the loading state
       setError // @param {Function} callback to set the error state if API call fails
     );
-
   }, []);
 
+  // Retry the API call when the retry button is pressed
+  const fetchData = () => {
+    setIsLoading(true);
+    setError(null);
+
+    // Make API call to retrieve shift data
+    getShiftAssignments(
+      startDate,
+      endDate,
+      setShiftData,
+      setIsLoading,
+      setError
+    );
+  };
+
+  // --- Render ---
+  
   // Render the ErrorScreen component if an error occurs during API call
   if (error) {
-    return <ErrorScreen message={error} onRetry={() => fetchData()} />;
+    return <ErrorScreen message={error} on
+    Retry={() => fetchData()} />;
   }
-
+  
   return (
-    <View style={styles.container}>
-      {/* Render the ActivityIndicator if the data is loading, otherwise render the WeeklySchedule component */}
-      {isLoading ? (
-        <View style={styles.loader}>
-          <ActivityIndicator size="large" color="#1e90ff" />
-          <Text style={styles.loadingText}>Loading...</Text>
-        </View>
-      ) : (
-        <WeeklySchedule style={styles.weeklySchedule}
-          {...weeklyScheduleProps}
-        />
-      )}
-    </View>
+  <View style={styles.container}>
+  {/* Render the ActivityIndicator if the data is loading, otherwise render the WeeklySchedule component */}
+  {isLoading ? (
+  <View style={styles.loader}>
+  <ActivityIndicator size="large" color="#1e90ff" />
+  <Text style={styles.loadingText}>Loading...</Text>
+  </View>
+  ) : (
+  <WeeklySchedule style={styles.weeklySchedule}
+  {...weeklyScheduleProps}
+  />
+  )}
+  </View>
   );
-};
-const styles = StyleSheet.create({
+  };
+  
+  const styles = StyleSheet.create({
   container: {
-    fontSize: 16,
-    flex: 1,
-    width: windowWidth,
-    height: windowHeight,
-    //maxWidth: "798px",
-    marginHorizontal: windowWidth * 0.02, // set margin of 5% of the device width on the left and right sides
-    marginTop: windowHeight * 0.1, // set margin of 2% of the device height at the top
-    marginBottom: windowHeight * 0.04, // set margin of 2% of the device height at the bottom
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
+  fontSize: 16,
+  flex: 1,
+  width: windowWidth,
+  height: windowHeight,
+  //maxWidth: "798px",
+  marginHorizontal: windowWidth * 0.02, // set margin of 5% of the device width on the left and right sides
+  marginTop: windowHeight * 0.1, // set margin of 2% of the device height at the top
+  marginBottom: windowHeight * 0.04, // set margin of 2% of the device height at the bottom
+  backgroundColor: "white",
+  justifyContent: "center",
+  alignItems: "center",
   },
   loader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
   },
   loadingText: {
-    marginTop: 10,
+  marginTop: 10,
   },
   weeklySchedule: {
-    justifyContent: "center",
-    alignItems: "center",
+  justifyContent: "center",
+  alignItems: "center",
   }
-});
-
-export default App;
+  });
+  
+  export default App;
