@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PrevButton, NextButton } from './Buttons';
 import WeekDisplay from './WeekDisplay';
-import { pixelRatio } from '../utils/responsiveSizing';
+import { pixelRatio } from '../../utils/responsiveSizing';
 
 const WeekSelector = ({ formattedArrayOfDateObjs, onWeekChange }) => {
   const today = new Date(); // Create a new Date object for today's date
@@ -32,6 +32,7 @@ const WeekSelector = ({ formattedArrayOfDateObjs, onWeekChange }) => {
 
 const styles = StyleSheet.create({
   container: {
+    maxWidth: pixelRatio(400),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: "space-around",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import WeekSelector from "./WeekSelector";
+import WeekSelector from "./Week Selector/WeekSelector";
 import { weekOfDateObjectsArray, weekFromStartDate } from "../utils/dateFunctions";
 import shiftDataExample from "../assets/shiftDataExample.json";
 

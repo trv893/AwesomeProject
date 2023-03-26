@@ -61,7 +61,7 @@ const App = () => {
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
       ) : (
-        <WeeklySchedule
+        <WeeklySchedule style={styles.weeklySchedule}
           {...weeklyScheduleProps}
         />
       )}
@@ -76,11 +76,13 @@ container: {
   flex: 1,
   width: windowWidth,
   height: windowHeight,
-  maxWidth: "798px",
+  //maxWidth: "798px",
   marginHorizontal: windowWidth * 0.02, // set margin of 5% of the device width on the left and right sides
   marginTop: windowHeight * 0.1, // set margin of 2% of the device height at the top
   marginBottom: windowHeight * 0.04, // set margin of 2% of the device height at the bottom
   backgroundColor: "white",
+  justifyContent: "center",
+  alignItems: "center",
 },
 loader: {
   flex: 1,
@@ -90,6 +92,11 @@ loader: {
 loadingText: {
   marginTop: 10,
 },
+weeklySchedule: {
+  justifyContent: "center",
+  alignItems: "center",
+  
+}
 });
 
 
