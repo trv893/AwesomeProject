@@ -4,6 +4,9 @@ import WeeklySchedule from "./components/WeeklySchedule";
 import { getShiftAssignments } from "./api/getShiftAssignments";
 import ErrorScreen from "./components/ErrorScreen";
 
+// Import the pixelRatio function from the responsiveSizing.js file to create responsive padding, margins, etc.
+import { pixelRatio } from "./utils/responsiveSizing";
+
 // Import the sample data to be used when testing
 import shiftDataExample from "./assets/shiftDataExample.json";
 
@@ -97,9 +100,13 @@ const App = () => {
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
       ) : (
-        <WeeklySchedule style={styles.weeklySchedule}
-          {...weeklyScheduleProps}
-        />
+        
+
+      <WeeklySchedule style={styles.weeklySchedule}
+      {...weeklyScheduleProps}
+      padding={pixelRatio(16)} // responsive padding of 16 pixels
+      margin={pixelRatio(8)} // responsive margin of 8 pixels
+    />
       )}
     </View>
   );
@@ -120,12 +127,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // ...
   },
   loadingText: {
-    marginTop: 10,
+    // ...
   },
   weeklySchedule: {
     justifyContent: "center",
