@@ -1,47 +1,50 @@
-# Week Selector Component
+# WeekSelector
 
-The Week Selector component is a React Native component that renders a set of buttons and a week display for selecting a week. It is designed to be used in conjunction with a calendar or date-picker component, allowing the user to easily navigate between different weeks.
+WeekSelector is a simple React Native component that allows users to select a week from a calendar view.
 
-```
+![WeekSelector Screenshot](./screenshots/week-selector.png)
 
 ## Usage
 
-Import the `WeekSelector` component from the package and render it in your app's component hierarchy. Pass the `formattedArrayOfDateObjs` and `onWeekChange` props to the `WeekSelector` component.
+To use WeekSelector in your React Native project, import the `WeekSelector` component and add it to your JSX code:
 
-```javascript
+```js
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import WeekSelector from '@your-username/week-selector-component';
+import { View, Text } from 'react-native';
+import WeekSelector from 'react-native-week-selector';
 
-const MyComponent = () => {
-  const [selectedWeek, setSelectedWeek] = useState([]);
+export default function MyComponent() {
+  const [selectedWeek, setSelectedWeek] = useState({});
 
-  const handleWeekChange = (direction) => {
-    // Update the selected week based on the direction
-    // ...
-  };
+  function handleWeekSelect(week) {
+    setSelectedWeek(week);
+  }
 
   return (
     <View>
       <WeekSelector
-        formattedArrayOfDateObjs={selectedWeek}
-        onWeekChange={handleWeekChange}
+        selected={selectedWeek}
+        onWeekSelect={handleWeekSelect}
       />
-      {/* Render other components */}
+      <Text>Selected Week: {selectedWeek.start.format('MMM D, YYYY')} - {selectedWeek.end.format('MMM D, YYYY')}</Text>
     </View>
   );
-};
+}
 ```
 
 ## Props
 
-The `WeekSelector` component accepts the following props:
+WeekSelector supports the following props:
 
-| Prop                       | Type         Description                                                                                       |
-| --------------------------|--------------| ------------------------------------------------------------------------------------------------- |
-| `formattedArrayOfDateObjs`| Array        | An array of date objects for the selected week in the following format: `[{dayNumberString: '01', dayString: 'Mon', dateObject: '2023-03-28T04:00:00.000Z'}, ...]` |
-| `onWeekChange`             | Function     | A function that is called when the user selects a new week. The function should accept a string argument `'prev'` or `'next'` to indicate the direction of the change. |
+| Prop           | Type     | Description                                      |
+| --------------| --------| -------------------------------------------------|
+| selected       | Object   | The selected week object (start and end dates).  |
+| onWeekSelect   | Function | Callback function that is called when a week is selected. |
+
+## Example
+
+Check out the `example` directory in this repository for a complete example of how to use WeekSelector.
 
 ## License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
