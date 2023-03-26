@@ -5,17 +5,22 @@ import { weekOfDateObjectsArray, weekFromStartDate } from "../utils/dateFunction
 import shiftDataExample from "../assets/shiftDataExample.json";
 
 /**
- * WeeklySchedule component that renders an employee's schedule for the following seven days.
+ * Component that renders an employee's schedule for the following seven days.
  * Uses the WeekSelector component to allow the user to transition beyond the next 7 days and back again.
  * The selected week's data is rendered in a separate component that has not been created yet.
  * 
  * @param {Array} shiftData - An array of shift objects for the employee.
  * @param {Date} startDate - The starting date for the selected week of the schedule.
  * @param {Number} userId - The ID of the employee whose schedule is being rendered.
+ * @returns {JSX.Element} The WeeklySchedule component
  */
 const WeeklySchedule = React.memo(({ shiftData, startDate, userId }) => {
   // Define state variables using the useState hook
+
+  // @type {Date} startDateForWeek is the date representing the start of the week currently being displayed
   const [startDateForWeek, setStartDateForWeek] = useState(startDate);
+
+  // @type {Array} selectedWeekArrayOfDateObject is an array of date objects representing the dates in the week currently being displayed
   const [selectedWeekArrayOfDateObject, setSelectedWeekArrayOfDateObject] = useState(
     weekOfDateObjectsArray(startDateForWeek),
   );
@@ -26,12 +31,15 @@ const WeeklySchedule = React.memo(({ shiftData, startDate, userId }) => {
    * Sets the new start date and selected week array of date objects in state.
    * 
    * @param {String} direction - The direction in which to change the selected week. Either "prev" or "next".
+   * @returns {void}
    */
   const onWeekChange = (direction) => {
     // Calculate the new start date based on the direction passed in and the current start date
-    var newStartDate = weekFromStartDate(direction, startDateForWeek,)
-    setStartDateForWeek(newStartDate); // Set the new start date in state
-    setSelectedWeekArrayOfDateObject(weekOfDateObjectsArray(newStartDate)); // Set the selected week array of date objects in state
+    const newStartDate = weekFromStartDate(direction, startDateForWeek,);
+
+    // Set the new start date and selected week array of date objects in state
+    setStartDateForWeek(newStartDate);
+    setSelectedWeekArrayOfDateObject(weekOfDateObjectsArray(newStartDate));
   };
 
   return (
